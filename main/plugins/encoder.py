@@ -91,13 +91,13 @@ async def encode(event, msg, scale=0):
     progress = f"progress-{FT}.txt"
     cmd = ''
     if scale == 240:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 426x240 -crf 18 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset fast -c:v libx265 -s 420x240 -pix_fmt yuv420p -crf 29 -c:a libopus -b:a 32k -c:s copy -profile:a aac_he_v2 -b:v 2M -map 0 -ac 2  -ab 32k  -vbr 2 -level 3.1 """{out}""" -y'
     elif scale == 360:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 640x360 -crf 20 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset fast -c:v libx265 -s 640x360 -pix_fmt yuv420p -crf 29 -c:a libopus -b:a 32k -c:s copy -profile:a aac_he_v2 -b:v 2M -map 0 -ac 2  -ab 32k  -vbr 2 -level 3.1 """{out}""" -y'
     elif scale == 480:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 854x480 -crf 23 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset fast -c:v libx265 -s 854x480 -pix_fmt yuv420p -crf 29 -c:a libopus -b:a 32k -c:s copy -profile:a aac_he_v2 -b:v 2M -map 0 -ac 2  -ab 32k  -vbr 2 -level 3.1 """{out}""" -y'
     elif scale == 720:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 1280x720 -crf 27 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset fast -c:v libx265 -s 1280x720 -pix_fmt yuv420p -crf 29 -c:a libopus -b:a 32k -c:s copy -profile:a aac_he_v2 -b:v 2M -map 0 -ac 2  -ab 32k  -vbr 2 -level 3.1 """{out}""" -y'
     try:
         await ffmpeg_progress(cmd, name, progress, FT, edit, ps_name, log=log)
     except Exception as e:
