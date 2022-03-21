@@ -91,11 +91,11 @@ async def encode(event, msg, scale=0):
     progress = f"progress-{FT}.txt"
     cmd = ''
     if scale == 240:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 426x240 -crf 18 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset fast -c:v libx265 -s 426x240 -pix_fmt yuv420p -crf 29 -c:a libopus -b:a 32k -c:s copy -profile:a aac_he_v2 -b:v 2M -map 0 -ac 2  -ab 32k  -vbr 2 -level 3.1 """{out}""" -y'
     elif scale == 360:
         cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset fast -c:v libx265 -s 640x360 -pix_fmt yuv420p -crf 29 -c:a libopus -b:a 32k -c:s copy -profile:a aac_he_v2 -b:v 2M -map 0 -ac 2  -ab 32k  -vbr 2 -level 3.1 """{out}""" -y'
     elif scale == 480:
-        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -s 854x480 -crf 18 -c:a libopus -ac 2 -ab 128k -c:s copy """{out}""" -y'
+        cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset fast -c:v libx265 -s 854x480 -pix_fmt yuv420p -crf 29 -c:a libopus -b:a 32k -c:s copy -profile:a aac_he_v2 -b:v 2M -map 0 -ac 2  -ab 32k  -vbr 2 -level 3.1 """{out}""" -y'
     elif scale == 720:
         cmd = f'ffmpeg -hide_banner -loglevel quiet -progress {progress} -i """{name}""" -preset fast -c:v libx265 -s 1280x720 -pix_fmt yuv420p -crf 29 -c:a libopus -b:a 32k -c:s copy -profile:a aac_he_v2 -b:v 2M -map 0 -ac 2  -ab 32k  -vbr 2 -level 3.1 """{out}""" -y'
     try:
@@ -160,6 +160,6 @@ async def encode(event, msg, scale=0):
     os.remove(name)
     os.remove(out2)
     await log.delete()
-    log_end_text2 = f'**{_ps} PROCESS FINISHED**\n\nTime Taken: {round((time.time()-DT)/60)} minutes\nInitial size: {i_size/1000000}mb.\nFinal size: {f_size/1000000}mb.\n\n[Bot is free now.]({SUPPORT_LINK})'
+    log_end_text2 = f'**{_ps} PROCESS FINISHED**\n\nTime Taken: {round((time.time()-DT)/60)} minutes\nInitial size: {i_size/100}mb.\nFinal size: {f_size/100}mb.\n\n[Bot is free now.]({SUPPORT_LINK})'
     await LOG_END(event, log_end_text2)
     
