@@ -24,7 +24,7 @@ from main.plugins.actions import set_thumbnail, rem_thumbnail, heroku_restart
 async def start(event):
     await event.reply(f'{st}', 
                       buttons=[
-                              [Button.inline("Menu.", data="menu")]
+                              [Button.inline("MENU", data="menu")]
                               ])
     tag = f'[{event.sender.first_name}](tg://user?id={event.sender_id})'
     await Drone.send_message(int(ACCESS_CHANNEL), f'{tag} started the BOT')
@@ -37,7 +37,7 @@ async def menu(event):
 async def info(event):
     await event.edit(f'**ℹ️NFO:**\n\n{info_text}',
                     buttons=[[
-                         Button.inline("Menu.", data="menu")]])
+                         Button.inline("MENU", data="menu")]])
     
 @Drone.on(events.callbackquery.CallbackQuery(data="notice"))
 async def notice(event):
@@ -67,7 +67,7 @@ async def help(event):
 @Drone.on(events.callbackquery.CallbackQuery(data="plugins"))
 async def plugins(event):
     await event.edit(f'{help_text}',
-                    buttons=[[Button.inline("Menu.", data="menu")]])
+                    buttons=[[Button.inline("MENU", data="menu")]])
                    
  #-----------------------------------------------------------------------------------------------                            
     
